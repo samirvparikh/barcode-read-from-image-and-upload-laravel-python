@@ -8,11 +8,12 @@
     <h2>Upload Image with Barcode</h2>
     
     <form id="uploadForm">
-        <input type="file" name="image" id="image" required />
+        <input type="file" name="image" id="image" />
         <input type="text" name="barcode" id="barcode" placeholder="Enter barcode" />
         <button type="submit">Upload</button>
         <p id="status"></p>
     </form>
+    <button id="processBtn">Run Barcode Processing</button>
 
     <script>
     document.getElementById('uploadForm').addEventListener('submit', async function (e) {
@@ -44,6 +45,19 @@
         })
         .catch(error => console.error('❌ Fetch Error:', error));
 
+    });
+
+    document.getElementById('processBtn').addEventListener('click', () => {
+        fetch('/run-barcode-processing')
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('status').innerText = data.message;
+                console.log('✅', data);
+            })
+            .catch(err => {
+                document.getElementById('status').innerText = 'Something went wrong!';
+                console.error('❌ Error:', err);
+            });
     });
     </script>
 

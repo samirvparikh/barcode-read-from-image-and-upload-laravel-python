@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\UploadController;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +28,8 @@ Route::get('/', function () {
 
 Route::get('/barcode-upload', [FileUploadController::class, 'showForm'])->name('barcode.form');
 Route::post('/barcode-read', [FileUploadController::class, 'readBarcode'])->name('barcode.read');
+
+Route::get('/run-barcode-processing', function () {
+    Artisan::call('barcode:process-images');
+    return response()->json(['status' => 'success', 'message' => 'Barcode processing executed.']);
+});
