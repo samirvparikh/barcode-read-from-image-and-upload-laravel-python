@@ -48,7 +48,7 @@
     });
 
     document.getElementById('processBtn').addEventListener('click', () => {
-        fetch('/run-barcode-processing')
+        fetch('run-barcode-processing')
             .then(res => res.json())
             .then(data => {
                 document.getElementById('status').innerText = data.message;
